@@ -1,0 +1,67 @@
+.completedSubmitBtn {
+   padding: 0 2px;
+   background-color: #e2eafc;
+   border: solid #d7e3fc 1px;
+   font-size: 13px;
+}
+
+.editBtn {
+   padding: 0 2px;
+   background-color: #efe5dc;
+   border: solid #eae4e9 1px;
+   font-size: 13px;
+}
+
+.nevermindBtn {
+   padding: 0 2px;
+   background-color: #d4afb9;
+   border: solid #eae4e9 1px;
+   font-size: 13px;
+}
+
+.submitChangesBtn {
+   padding: 0 2px;
+   background-color: #7da49e;
+   border: solid #eae4e9 1px;
+   font-size: 13px;
+}
+
+.toDo {
+   border: solid rgb(65, 62, 62) 1px;
+   border-radius: 1%;
+   padding: 10px;
+}
+
+.priority1 {
+   background-color: #7a8af3;
+}
+
+.priority2 {
+   background-color: #b9b5ff;
+}
+
+.priority3 {
+   background-color: #b7b4ed89;
+}
+
+.overdue {
+   color: #b31e1e;
+}
+
+.logout {
+   position: absolute;
+   right: 15px;
+   top: 30%;
+}
+
+.header {
+   padding: 20px 0;
+   position: relative;
+   text-align: center;
+   background-color: #ebcff067;
+   border-bottom: solid grey 2px
+}
+
+.headerTitle {
+   display: inline;
+}

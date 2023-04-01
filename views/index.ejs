@@ -1,0 +1,114 @@
+<%-include('boilerplate.ejs') %>
+<div class="container-fluid">
+    <div class="row">
+        <div class="mb-5 header">
+            <h1 class="headerTitle"><%=username%>'s List</h1>
+            <form action="/toDo/logout" class="logout">
+                <Button class="btn btn-secondary btn-sm">Logout</Button>
+            </form>
+        </div>
+               
+    </div>
+    <div class="row">
+        <div class="col-2">
+            <h2 class="mb-3">Add A New To-Do</h2>
+            <form method="POST" action="/toDo/list" novalidate class="validatedForm">
+                <div class="mb-3">
+                    <label for="task" class="form-label">Enter Your Task</label>
+                    <input type="text" name="task" id="task" class="form-control" required>
+                </div>
+                <div class="mb-1">Select Task Priority</div>
+                <div class="form-check form-check-inline mb-3 priority1">
+                    <input class="form-check-input" type="radio" name="priority" id="highPriority" value="1" required>
+                    <label class="form-check-label" for="highPriority">High</label>
+                </div>
+                <div class="form-check form-check-inline mb-3 priority2">
+                    <input class="form-check-input" type="radio" name="priority" id="mediumPriority" value="2">
+                    <label class="form-check-label" for="mediumPriority">Medium</label>
+                </div>
+                <div class="form-check form-check-inline mb-3 priority3">
+                    <input class="form-check-input" type="radio" name="priority" id="lowPriority" value="3">
+                    <label class="form-check-label" for="lowPriority">Low</label>
+                </div>
+                <div class="mb-1">Select Task Category</div>
+                <div class="form-check form-check-inline mb-3">
+                    <input class="form-check-input" type="radio" name="category" id="work" value="work" required>
+                    <label class="form-check-label" for="work">Work</label>
+                </div>
+                <div class="form-check form-check-inline mb-3">
+                    <input class="form-check-input" type="radio" name="category" id="personal" value="personal">
+                    <label class="form-check-label" for="personal">Personal</label>
+                </div>
+                <div class="form-check form-check-inline mb-3">
+                    <input class="form-check-input" type="radio" name="category" id="school" value="school">
+                    <label class="form-check-label" for="school">School</label>
+                </div>
+                <div class="mb-3">
+                    <label for="completeBy" class="form-label">When Does Your Task Need To Be Completed By?</label>
+                    <input type="date" name="completeBy" id="completeBy" class="form-control" required>
+                </div>
+                <button class="btn btn-primary">Add To My List</button>
+            </form>
+        </div>
+        <div class="col-3 offset-1">
+        <h2 class="mb-3">Work List</h2>
+        <% let toDoArray = workToDos %>             
+        <%- include('toDoPartial.ejs', {toDoArray})%>   
+        </div>
+        <div class="col-3">
+            <h2 class="mb-3">Personal List</h2>
+            <% toDoArray = personalToDos %>             
+        <%- include('toDoPartial.ejs', {toDoArray})%>  
+        </div>
+        <div class="col-3">
+            <h2 class="mb-3">School List</h2>
+            <% toDoArray = schoolToDos %>             
+        <%- include('toDoPartial.ejs', {toDoArray})%>  
+        </div>
+    </div>
+</div>
+    <script>
+    function addPriorityColour(id, priority) {
+        document.getElementById(`colourDiv${id}`).setAttribute('class', 'highPriority');
+    }
+
+        function defaultPriority(id, priority) {
+            if (priority === "1") {
+                document.getElementById(`highPriority${id}`).setAttribute('checked', 'true')
+            } else if (priority === "2") {
+                document.getElementById(`mediumPriority${id}`).setAttribute('checked', 'true')
+            } else {
+                document.getElementById(`lowPriority${id}`).setAttribute('checked', 'true')
+            }
+        }
+
+        function unhideForm(id) {
+            document.getElementById(`editForm${id}`).removeAttribute('hidden');
+        }
+
+        function hideForm(id) {
+            document.getElementById(`editForm${id}`).setAttribute('hidden', 'true');
+        }
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        const forms = document.querySelectorAll('.validatedForm')
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+            form.addEventListener('submit', function (event) {
+                if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+                }
+
+                form.classList.add('was-validated')
+            }, false)
+            })
+        })()
+    </script>
+
+ 

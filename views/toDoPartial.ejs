@@ -1,0 +1,42 @@
+<% for(let toDo of toDoArray){%>
+    <div class="mb-3 toDo priority<%=toDo.priority%>">
+        <h4><%=toDo.task %></h4>
+        Complete By:
+        <strong><%=formatDate(toDo)%></strong>
+        <% const today = new Date(); %>
+        <% const offset = today.getTimezoneOffset() %>   
+        <% today.setHours(0, -offset, 0, 0);%>
+        <% if (toDo.completeBy < today) {%>
+            <span class="overdue">OVERDUE</span>
+        <% } %>
+        <form method="POST" action="/toDo/list/<%=toDo._id %>?_method=DELETE">
+            <label for="complete<%=toDo._id %>" class="form-label">Completed?</label>
+            <input type="checkbox" name="complete" id="complete<%=toDo._id %>" class="form-check-input">
+            <button class="btn completedSubmitBtn">Submit</button>
+        </form>
+        <button class="btn editBtn mb-3" onclick="unhideForm('<%=toDo._id%>'); defaultPriority('<%=toDo._id%>', '<%=toDo.priority%>')">Edit Task</button>
+        <div id="editForm<%=toDo._id%>" hidden>
+            <form method="POST" action="/toDo/list/<%=toDo._id %>?_method=PATCH" novalidate class="validatedForm">
+                <div class="mb-1">Change Priority</div>
+                <div class="form-check form-check-inline mb-3">
+                    <input class="form-check-input" type="radio" name="priority" id="highPriority<%=toDo._id %>" value="1" required>
+                    <label class="form-check-label" for="highPriority<%=toDo._id %>">High</label>
+                </div>
+                <div class="form-check form-check-inline mb-3">
+                    <input class="form-check-input" type="radio" name="priority" id="mediumPriority<%=toDo._id %>" value="2">
+                    <label class="form-check-label" for="mediumPriority<%=toDo._id %>">Medium</label>
+                </div>
+                <div class="form-check form-check-inline mb-3">
+                    <input class="form-check-input" type="radio" name="priority" id="lowPriority<%=toDo._id %>" value="3">
+                    <label class="form-check-label" for="lowPriority<%=toDo._id %>">Low</label>
+                </div>
+                <div class="mb-3">
+                    <label for="completeBy<%=toDo._id %>" class="form-label">Change Date to be Completed By</label>
+                    <input type="date" name="completeBy" id="completeBy<%=toDo._id %>" class="form-control" value="<%=defaultDate(toDo)%>" required>
+                </div>
+                <button class="btn submitChangesBtn">Submit Task Changes</button>
+            </form>
+            <button class="btn nevermindBtn" id="nevermind<%=toDo._id %>" onclick="hideForm('<%=toDo._id %>')">Nevermind</button>
+        </div>
+    </div>
+    <% } %> 
